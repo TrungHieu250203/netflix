@@ -1,0 +1,16 @@
+.movies {
+    background-color: var(--black-color);
+    padding-bottom: 50px;
+
+    .banner {
+        width: 100%;
+    }
+
+    h2 {
+        font-size: 3rem;
+        font-weight: 500;
+        line-height: 1.5;
+        color: var(--white-color);
+        padding: 40px 0;
+    }
+}

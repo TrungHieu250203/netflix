@@ -1,0 +1,18 @@
+.hero {
+    margin-top: 140px;
+    text-align: center;
+
+    h1 {
+        font-size: 5rem;
+        font-weight: 800;
+        line-height: 1.4;
+        color: var(--white-color);
+    }
+
+    .desc {
+        font-size: 1.9rem;
+        color: var(--white-color);
+        font-weight: 400;
+        line-height: 1.2;
+    }
+}
