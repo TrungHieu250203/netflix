@@ -67,7 +67,10 @@ const MailBox = () => {
             <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} />
           </>
         ) : (
-          <strong className={cx("mail-desc")} onClick={() => setClick(true)}>
+          <strong
+            className={cx("mail-desc")} 
+            onClick={() => setClick(true)}
+          >
             Email or mobile number
           </strong>
         )}

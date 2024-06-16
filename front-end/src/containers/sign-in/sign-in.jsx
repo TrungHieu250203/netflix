@@ -2,18 +2,19 @@
 import classNames from "classnames/bind";
 import styles from "./sign-in.module.scss";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const cx = classNames.bind(styles);
 
 const Login = () => {
   const [userData, setUserData] = useState({
+    click: false,
     moreActive: false,
     email: "",
     password: "",
   });
-  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,11 +24,13 @@ const Login = () => {
         password: userData.password,
       };
       const response = await axios.post(
-        "http://localhost:3000/api/users/auth/login",
-        userForm
+        `${import.meta.env.VITE_API_URL}/users/auth/login`,
+        userForm,
       );
-      sessionStorage.setItem("token", response.data.accessToken);
-      navigate("/home", { replace: true });
+      Cookies.set("token", response.data.accessToken, { expires: 1/12 });
+      Cookies.set("avatar", response.data.avatarUrl, { expires: 1/12 });
+      Cookies.set("email", userData.email, { expires: 1/12 });
+      window.location.href ="/";
     } catch (error) {
       console.error("Registration error:", error.response);
     }
@@ -37,6 +40,7 @@ const Login = () => {
     const { name, value } = e.target;
     setUserData(prevData => ({
       ...prevData,
+      click: true,
       [name]: value
     }));
   };
@@ -75,13 +79,13 @@ const Login = () => {
                 <h2>Sign In</h2>
                 <div className={cx("input-box")}>
                   <input type="text" className={cx("user-input")} name="email" value={userData.email} onChange={handleInputChange} placeholder="Email" />
-                  {!userData.email.includes("@gmail.com") && <strong className={cx("warning")}>Invalid email, please check again</strong>}
+                  { userData.click && !userData.email.includes("@gmail.com") && <strong className={cx("warning")}>Invalid email, please check again</strong>}
                   <input type="password" className={cx("user-input")} name="password" value={userData.password} onChange={handleInputChange} placeholder="Password" />
                 </div>
                 <button className={cx("sign-in")} type="submit">Sign In</button>
                 <strong className={cx("or-text")}>OR</strong>
                 <button className={cx("qr-code")}>Use a Sign-In Code</button>
-                <Link className={cx("forgot")} to="/">
+                <Link className={cx("forgot")} to="/forgot-password">
                   Forgot password?
                 </Link>
                 <div className={cx("remember")}>
@@ -90,7 +94,7 @@ const Login = () => {
                 </div>
                 <div className={cx("sign-up")}>
                   <p>New to Netflix?</p>
-                  <Link to="/" className={cx("sign-up-link")}>
+                  <Link to="/auth/register" className={cx("sign-up-link")}>
                     Sign up now
                   </Link>
                 </div>

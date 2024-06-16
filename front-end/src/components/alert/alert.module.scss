@@ -1,0 +1,14 @@
+.alert-box {
+    z-index: 999;
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    width: 300px;
+    min-height: 60px;
+    background-color: var(--black-color);
+    border: 1px solid var(--box-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}

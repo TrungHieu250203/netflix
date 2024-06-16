@@ -9,6 +9,8 @@ const cx = classNames.bind(styles);
 
 const Register = () => {
   const [userData, setUserData] = useState({
+    emailClick: false,
+    passwordClick: false,
     name: "",
     email: sessionStorage.getItem("email") || "",
     password: "",
@@ -17,14 +19,22 @@ const Register = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const userForm = {
-        name: userData.name,
-        email: userData.email,
-        password: userData.password,
-      };
+      const formData = new FormData();
+      const fileInput = document.querySelector('input[type="file"]');
+      formData.append("name", userData.name);
+      formData.append("email", userData.email);
+      formData.append("password", userData.password);
+      if (fileInput && fileInput.files[0]) {
+        formData.append("avatar", fileInput.files[0]);
+      }
       await axios.post(
-        "http://localhost:3000/api/users/auth/register",
-        userForm
+        `${import.meta.env.VITE_API_URL}/users/auth/register`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
       window.location.href = "/auth/login";
     } catch (error) {
@@ -34,10 +44,19 @@ const Register = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData(prevData => ({
-      ...prevData,
-      [name]: value
-    }));
+    if (name === "email") {
+      setUserData((prevData) => ({
+        ...prevData,
+        emailClick: true,
+        [name]: value,
+      }));
+    } else {
+      setUserData((prevData) => ({
+        ...prevData,
+        passwordClick: true,
+        [name]: value,
+      }));
+    }
   };
 
   return (
@@ -73,11 +92,46 @@ const Register = () => {
               <form onSubmit={handleSubmit}>
                 <h2>Sign Up</h2>
                 <div className={cx("input-box")}>
-                  <input type="text" className={cx("user-input")} name="name" value={userData.name} onChange={handleInputChange} placeholder="Name" />
-                  <input type="text" className={cx("user-input")} name="email" value={userData.email} onChange={handleInputChange} placeholder="Email" />
-                  {!userData.email.includes("@gmail.com") && <strong className={cx("warning")}>Invalid email, please check again</strong>}
-                  <input type="password" className={cx("user-input")} name="password" value={userData.password} onChange={handleInputChange} placeholder="Password" />
-                  {!userData.password.length < 6 && <strong className={cx("warning")}>Password must be more than 6 characters</strong>}
+                  <input
+                    type="file"
+                    className={cx("user-input")}
+                    name="avatar"
+                  />
+                  <input
+                    type="text"
+                    className={cx("user-input")}
+                    name="name"
+                    value={userData.name}
+                    onChange={handleInputChange}
+                    placeholder="Name"
+                  />
+                  <input
+                    type="text"
+                    className={cx("user-input")}
+                    name="email"
+                    value={userData.email}
+                    onChange={handleInputChange}
+                    placeholder="Email"
+                  />
+                  {userData.emailClick &&
+                    !userData.email.includes("@gmail.com") && (
+                      <strong className={cx("warning")}>
+                        Invalid email, please check again
+                      </strong>
+                    )}
+                  <input
+                    type="password"
+                    className={cx("user-input")}
+                    name="password"
+                    value={userData.password}
+                    onChange={handleInputChange}
+                    placeholder="Password"
+                  />
+                  {userData.passwordClick && userData.password.length < 6 && (
+                    <strong className={cx("warning")}>
+                      Password must be more than 6 characters
+                    </strong>
+                  )}
                 </div>
                 <button type="submit" className={cx("sign-up")}>
                   Sign Up

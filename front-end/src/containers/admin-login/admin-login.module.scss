@@ -1,0 +1,50 @@
+.admin-login {
+    padding: 195px 0;
+
+    form {
+        width: 450px;
+        min-height: 180px;
+        margin: 0 auto;
+        padding: 20px 20px 40px 20px;
+        background-color: transparent;
+        border: 1px solid var(--box-color);
+
+        h3 {
+            font-size: 2.8rem;
+            font-weight: 600;
+            line-height: 1.6;
+            color: var(--white-color);
+            padding-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            display: block;
+            margin: 0 auto 20px auto;
+            border: none;
+            border-radius: 4px;
+            background-color: transparent;
+            outline: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            color: var(--white-color);
+            padding: 15px;
+            border: 1px solid var(--text-color);
+        }
+
+        button {
+            margin-top: 20px;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            width: 100%;
+            min-height: 45px;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1.4;
+            color: var(--white-color);
+            background-color: var(--button-color);
+        }
+    }
+}

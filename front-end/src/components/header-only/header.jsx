@@ -1,12 +1,116 @@
 import classNames from "classnames/bind";
 import styles from "./header.module.scss";
-import { Link } from "react-router-dom";
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import axios from "axios";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import SearchIcon from "@mui/icons-material/Search";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { useState } from "react";
+import { useMovies } from "../../context/movie-provider";
+import Cookies from "js-cookie";
+import AccountBoxIcon from "@mui/icons-material/AccountBox";
+import HelpCenterIcon from "@mui/icons-material/HelpCenter";
+import PermContactCalendarIcon from "@mui/icons-material/PermContactCalendar";
+import ExitToAppIcon from "@mui/icons-material/ExitToApp";
+import { useNotifications } from "../socket/socket";
 
 const cx = classNames.bind(styles);
 
 const Header = () => {
+  const { notifications, setNotifications } = useNotifications();
+  const [keyword, setKeyword] = useState("");
+  const [searchClick, setSearchClick] = useState(false);
+  const { setMovies, setTotalPagesSearch } = useMovies();
+  const navigate = useNavigate();
+  const token = Cookies.get("token");
+  const avatarUrl = Cookies.get("avatar");
+  const options = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const location = useLocation();
+
+  const fetchMoviesByKeyword = async (keyword) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/api/movies?keyword=${encodeURIComponent(keyword)}`, options
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching movies by keyword:", error);
+      throw error; 
+    }
+  };
+
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      if(keyword.length > 0) {
+        const data = await fetchMoviesByKeyword(keyword);
+        setKeyword("");
+        setTotalPagesSearch(data.totalPagesSearch)
+        setMovies(data.movies);
+        navigate(`/search-film?keyword=${encodeURIComponent(keyword)}`);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  const handleLogout = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(
+        "http://localhost:3000/api/users/auth/logout", options
+      );
+      if(response.status === 200) {
+        console.log("Logout successful!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  const handleNotifications = async (event, notificationSlug) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/movies/notifications/read", 
+        {
+          notifySlug: notificationSlug
+        }, 
+        options
+      );
+      if(response.status === 200) {
+        console.log("Handle successful!");
+        setNotifications((prevNotifications) =>
+          prevNotifications.map((notification) =>
+            notification.slug === notificationSlug
+              ? { ...notification, status: "read" }
+              : notification
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  }
+
+  const clearTokenCookie = () => {
+    Cookies.remove("email", { path: "/" });
+    Cookies.remove("token", { path: "/" });
+    Cookies.remove("avatar", { path: "/" });
+    window.location.reload();
+  }
+
+  const isActive = (path) => location.pathname.includes(path);
+
+  const unreadNotificationsCount = notifications.filter(
+    (notification) => notification.status === "unread"
+  ).length;
+
   return (
     <header className={cx("header")}>
       <div className="container">
@@ -14,7 +118,7 @@ const Header = () => {
           <div className="col-12 d-flex justify-content-between align-items-center">
             <ul className={cx("header-list")}>
               <li>
-                <Link>
+                <Link to="/">
                   <svg
                     viewBox="0 0 111 30"
                     version="1.1"
@@ -31,40 +135,179 @@ const Header = () => {
                   </svg>
                 </Link>
               </li>
-              <li>
-                <Link to="/home" className={cx("header-link")}>
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link className={cx("header-link")}>
+              <li className={cx("header-item")}>
+                <Link
+                  to="/series"
+                  className={
+                    isActive("/series")
+                      ? cx("header-link", "active-link")
+                      : cx("header-link")
+                  }
+                >
                   Series
                 </Link>
               </li>
-              <li>
-                <Link className={cx("header-link")}>
-                  Movies
+              <li className={cx("header-item")}>
+                <Link
+                  to="/feature-films"
+                  className={
+                    isActive("/feature-films")
+                      ? cx("header-link", "active-link")
+                      : cx("header-link")
+                  }
+                >
+                  Features
                 </Link>
               </li>
-              <li>
-                <Link className={cx("header-link")}>
-                  Most recent
+              <li className={cx("header-item")}>
+                <Link
+                  to="/tv-shows"
+                  className={
+                    isActive("/tv-shows")
+                      ? cx("header-link", "active-link")
+                      : cx("header-link")
+                  }
+                >
+                  TV Shows
                 </Link>
               </li>
-              <li>
-                <Link className={cx("header-link")}>
+              <li className={cx("header-item")}>
+                <Link
+                  to="/animated"
+                  className={
+                    isActive("/animated")
+                      ? cx("header-link", "active-link")
+                      : cx("header-link")
+                  }
+                >
+                  Animated
+                </Link>
+              </li>
+              <li className={cx("header-item")}>
+                <Link
+                  to="/my-list"
+                  className={
+                    isActive("/my-list")
+                      ? cx("header-link", "active-link")
+                      : cx("header-link")
+                  }
+                >
                   My list
                 </Link>
               </li>
             </ul>
             <div className="d-flex justify-content-between align-items-center gap-4">
-              <div className={cx("search-box")}>
-                <input type="search" placeholder="Search..." />
-                <SearchIcon className={cx("header-icon")}/>
+              <form onSubmit={handleSearch} className={cx("search-box")}>
+                {searchClick && (
+                  <input
+                    type="search"
+                    value={keyword}
+                    onChange={(e) => setKeyword(e.target.value)}
+                    placeholder="Search..."
+                  />
+                )}
+                <button
+                  type="submit"
+                  className={cx("btn-search")}
+                  onClick={() => setSearchClick(!searchClick)}
+                >
+                  <SearchIcon className={cx("header-icon")} />
+                </button>
+              </form>
+              <div className={cx("notify")}>
+                <span
+                  className={cx("circle-notify")}
+                  style={
+                    unreadNotificationsCount === 0 ? { display: "none" } : {}
+                  }
+                >
+                  {unreadNotificationsCount}
+                </span>
+                <div className={cx("notify-icon")}>
+                  <NotificationsIcon className={cx("header-icon")} />
+                </div>
+                <div className={cx("notify-table")}>
+                  <div className={cx("triangle-border")}>
+                    <span className={cx("triangle")}></span>
+                  </div>
+                  <div
+                    className="pt-2 pb-2"
+                    id={cx("scrollable-element")}
+                    style={{ height: "320px", overflowY: "auto" }}
+                  >
+                    {notifications.map((notification) => {
+                      return (
+                        <div
+                          key={notification._id}
+                          className={cx("notify-item")}
+                        >
+                          <form
+                            className={cx("notify-link")}
+                            onSubmit={(e) =>
+                              handleNotifications(e, notification.slug)
+                            }
+                          >
+                            <input
+                              type="hidden"
+                              name="notifySlug"
+                              value={notification.slug}
+                            />
+                            <img
+                              src={notification.poster_url}
+                              alt={notification.slug}
+                              className={cx("img")}
+                            />
+                            <div className={cx("notify-inf")}>
+                              <strong>{notification.message}</strong>
+                              <span>{notification.timestamp}</span>
+                            </div>
+                            {notification.status === "unread" ? (
+                              <button
+                                type="submit"
+                                className={cx("circle")}
+                              ></button>
+                            ) : (
+                              <span>
+                                <CheckCircleIcon className={cx("check-icon")} />
+                              </span>
+                            )}
+                          </form>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
-              <NotificationsIcon className={cx("header-icon")} />
-              <div>
-                
+              <div className={cx("account")}>
+                <div className={cx("user-account")}>
+                  <img
+                    src={`http://localhost:3000${avatarUrl}`}
+                    className={cx("avatar")}
+                    alt="avatar"
+                  />
+                  <ArrowDropDownIcon className={cx("header-icon")} />
+                </div>
+                <div className={cx("account-setting")}>
+                  <div className={cx("triangle-border")}>
+                    <span className={cx("triangle")}></span>
+                  </div>
+                  <Link to="/profile">
+                    <AccountBoxIcon className={cx("icon")} /> Profile
+                  </Link>
+                  <Link to="/support">
+                    <HelpCenterIcon className={cx("icon")} /> Support
+                  </Link>
+                  <Link to="/contact">
+                    <PermContactCalendarIcon className={cx("icon")} /> Contact
+                  </Link>
+                  <form className={cx("form-logout")} onSubmit={handleLogout}>
+                    <input type="hidden" name="token" value={token} />
+                    <button type="submit" onClick={clearTokenCookie}>
+                      <ExitToAppIcon className={cx("icon")} />
+                      Log out
+                    </button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

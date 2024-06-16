@@ -1,7 +1,11 @@
 module.exports = (query) => {
     const sort = {};
-    if(query.sortKey && query.sortValue) {
-      sort[query.sortKey] = query.sortValue;
+    let sortKey = query.sortKey;
+    if(sortKey) {
+      sortKey = `movie.${sortKey}`;
+    }
+    if(query.sortValue) {
+      sort[sortKey] = query.sortValue === "inc" ? 1 : -1;
     }
     return sort;
 }

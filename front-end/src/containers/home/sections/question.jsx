@@ -35,6 +35,7 @@ const questions = [
 ]
 
 const Questions = () => {
+  const token = localStorage.getItem("token");
   return (
     <div className={cx("questions")}>
       <div className="container">
@@ -46,10 +47,10 @@ const Questions = () => {
                     return <Question key={index} title={question.title} desc={[question.desc_1, question.desc_2]} />
                 })}
             </div>
-            <div className={cx("mail-box")}>
+            { !token && <div className={cx("mail-box")}>
                 <p>Ready to watch? Enter your email or mobile number to create or restart your membership.</p>
                 <MailBox />
-            </div>
+            </div> }
           </div>
         </div>
       </div>

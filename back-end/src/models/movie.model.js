@@ -58,7 +58,6 @@ const MovieSchema = new Schema({
 });
 
 const MainSchema = new Schema({
-  _id: { type: Schema.Types.ObjectId, required: true },
   status: Boolean,
   msg: String,
   movie: MovieSchema,

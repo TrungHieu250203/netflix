@@ -1,5 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./footer.module.scss";
+import InstagramIcon from "@mui/icons-material/Instagram";
+import FacebookIcon from "@mui/icons-material/Facebook";
+import XIcon from "@mui/icons-material/X";
 
 const cx = classNames.bind(styles);
 
@@ -23,8 +26,10 @@ const Footer = () => {
               <li>
                 <a href="">Speed Test</a>
               </li>
-              <li>
-                Netflix Vietnam
+              <li className={cx("group-icon")}>
+                <InstagramIcon className={cx("icon")} />
+                <FacebookIcon className={cx("icon")} />
+                <XIcon className={cx("icon")} />
               </li>
             </ul>
           </div>

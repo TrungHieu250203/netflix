@@ -46,6 +46,10 @@
         color: var(--white-color);
         background-color: var(--button-color);
         margin-top: 15px;
+
+        &:hover {
+            color: var(--text-color);
+        }
     }
 
     .sign-in {
