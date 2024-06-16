@@ -4,8 +4,8 @@ import { getMyProfile } from "../../api";
 import { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 import EditIcon from "@mui/icons-material/Edit";
-import DragonImg from "../../../assets/imgs/dragon.gif";
-import Silver from "../../../assets/imgs/Silver-Icon.png";
+import DragonImg from "/assets/imgs/dragon.gif";
+import Silver from "/assets/imgs/Silver-Icon.png";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
