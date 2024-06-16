@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./multi-use.module.scss";
-import iMac from "../../../../assets/imgs/device-pile-vn.png";
-import Video from "../../../../assets/videos/video-devices-vn.m4v";
+import iMac from "/assets/imgs/device-pile-vn.png";
+import Video from "/assets/videos/video-devices-vn.m4v";
 
 const cx = classNames.bind(styles);
 

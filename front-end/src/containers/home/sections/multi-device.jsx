@@ -1,7 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./multi-device.module.scss";
-import TVImages from "../../../../assets/imgs/tv.png";
-import Video from "../../../../assets/videos/video-tv-0819.m4v";
+import TVImages from "/assets/imgs/tv.png";
+import Video from "/assets/videos/video-tv-0819.m4v";
 
 const cx = classNames.bind(styles);
 

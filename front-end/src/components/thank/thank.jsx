@@ -1,6 +1,6 @@
 import classNames from "classnames/bind";
 import styles from "./thank.module.scss";
-import Logo from "../../../assets/imgs/Netflix-PPT-Template.jpg";
+import Logo from "/assets/imgs/Netflix-PPT-Template.jpg";
 
 const cx = classNames.bind(styles);
 const Thank = () => {

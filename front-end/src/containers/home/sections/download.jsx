@@ -1,8 +1,8 @@
 import classNames from "classnames/bind";
 import styles from "./download.module.scss";
-import Smartphone from "../../../../assets/imgs/mobile-0819.jpg";
-import Movie from "../../../../assets/imgs/boxshot.png";
-import Icon from "../../../../assets/imgs/download-icon.gif";
+import Smartphone from "/assets/imgs/mobile-0819.jpg";
+import Movie from "/assets/imgs/boxshot.png";
+import Icon from "/assets/imgs/download-icon.gif";
 
 const cx = classNames.bind(styles);
 

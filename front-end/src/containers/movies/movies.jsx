@@ -10,7 +10,7 @@ import Sort from "../../components/sort/sort";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import DeleteIcon from "@mui/icons-material/Delete";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
-import Loading from "../../../assets/imgs/kOnzy.gif";
+import Loading from "/assets/imgs/kOnzy.gif";
 
 const cx = classNames.bind(styles);
 
