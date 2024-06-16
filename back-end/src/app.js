@@ -24,6 +24,9 @@ app.use(express.json());
 app.use(methodOverride("_method"));
 
 database.connect();
+app.get("/", async (req, res) => {
+  res.send("Server is listening...");
+});
 router(app);
 
 server.listen(port, () => {
