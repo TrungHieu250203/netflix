@@ -1,9 +1,14 @@
 {
   "name": "back-end",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/app.js",
+  "engines": {
+    "node": "18.x"
+  },
+  "type": "commonjs",
   "scripts": {
-    "start": "nodemon --inspect src/app.js",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

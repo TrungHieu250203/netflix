@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start:backend": "cd back-end && npm start",
+    "start:backend": "cd back-end && node src/app.js",
     "start:frontend": "cd front-end && npm run dev",
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\""
   },
