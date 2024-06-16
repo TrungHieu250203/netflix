@@ -37,5 +37,3 @@ bower_components/
 
 # Ignore assets directory
 assets/
-
-vercel.json
