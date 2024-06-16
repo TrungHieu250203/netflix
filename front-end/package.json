@@ -19,7 +19,6 @@
     "chart.js": "^4.4.3",
     "classnames": "^2.5.1",
     "js-cookie": "^3.0.5",
-    "node-sass": "^9.0.0",
     "normalize.css": "^8.0.1",
     "query-string": "^9.0.0",
     "react": "^18.2.0",
@@ -39,7 +38,7 @@
     "eslint-plugin-react": "^7.34.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
-    "sass": "^1.75.0",
+    "sass": "^1.77.5",
     "vite": "^5.2.0"
   }
 }
