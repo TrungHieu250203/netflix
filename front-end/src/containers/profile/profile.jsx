@@ -4,8 +4,6 @@ import { getMyProfile } from "../../api";
 import { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 import EditIcon from "@mui/icons-material/Edit";
-import DragonImg from "/assets/imgs/dragon.gif";
-import Silver from "/assets/imgs/Silver-Icon.png";
 import axios from "axios";
 
 const cx = classNames.bind(styles);
@@ -63,7 +61,7 @@ const Profile = () => {
         try {
             const userName = nameInputRef.current.value;
             const userEmail = emailInputRef.current.value;
-            const response = await axios.patch("http://localhost:3000/api/users/profile/edit", {
+            const response = await axios.patch(`${import.meta.env.VITE_API_URL}/users/profile/edit`, {
                 userName: userName,
                 userEmail: userEmail
             }, options);
@@ -88,7 +86,7 @@ const Profile = () => {
                         <div className={cx("profile-img")}>
                             <img src={`http://localhost:3000${profile.avatar}`} alt="avatar" />
                             <div className={cx("classify")}>
-                                <img src={Silver} alt="rank" />
+                                <img src={"/assets/imgs/Silver-Icon.png"} alt="rank" />
                                 <strong>VIP Account</strong>
                             </div>
                         </div>
@@ -109,7 +107,7 @@ const Profile = () => {
                     </div>
                     <div className="col-8">
                         <div className={cx("dragon-fly")}>
-                            <img src={DragonImg} alt="dragon" />
+                            <img src={"/assets/imgs/dragon.gif"} alt="dragon" />
                         </div>
                     </div>
                 </div>

@@ -1,7 +1,5 @@
 import classNames from "classnames/bind";
 import styles from "./multi-device.module.scss";
-import TVImages from "/assets/imgs/tv.png";
-import Video from "/assets/videos/video-tv-0819.m4v";
 
 const cx = classNames.bind(styles);
 
@@ -21,9 +19,9 @@ const MultiDevice = () => {
           </div>
           <div className="col-6">
             <div className={cx("device-right")}>
-              <img src={TVImages} alt="Error" />
+              <img src={"/assets/imgs/tv.png"} alt="Error" />
               <video autoPlay muted loop width={465}>
-                <source src={Video} type="video/mp4" />
+                <source src={"/assets/videos/video-tv-0819.m4v"} type="video/mp4" />
               </video>
             </div>
           </div>

@@ -72,7 +72,7 @@ const ImageSlider = ({ images }) => {
         movieSlug: currentImage.slug
       }
       const response = await axios.post(
-        `http://localhost:3000/api/movies/my-list/add/${slug}`,
+        `${import.meta.env.VITE_API_URL}/movies/my-list/add/${slug}`,
         formData, 
         options
       );

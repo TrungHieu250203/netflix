@@ -1,6 +1,5 @@
 import classNames from "classnames/bind";
 import styles from "./kid-content.module.scss";
-import Kid from "/assets/imgs/AAAABejKYujIIDQciqmGJJ8BtXkYKKTi5jiqexltvN1YmvXYIfX8B9CYwooUSIzOKneblRFthZAFsYLMgKMyNfeHwk16DmEkpIIcb6A3.png";
 
 const cx = classNames.bind(styles);
 
@@ -11,7 +10,7 @@ const KidContent = () => {
         <div className="row">
           <div className="col-6">
             <div className={cx("kid-content-left")}>
-                <img src={Kid} alt="Error" />
+                <img src={"/assets/imgs/AAAABejKYujIIDQciqmGJJ8BtXkYKKTi5jiqexltvN1YmvXYIfX8B9CYwooUSIzOKneblRFthZAFsYLMgKMyNfeHwk16DmEkpIIcb6A3.png"} alt="Error" />
             </div>
           </div>
           <div className="col-6">

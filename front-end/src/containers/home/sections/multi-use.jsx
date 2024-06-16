@@ -1,7 +1,5 @@
 import classNames from "classnames/bind";
 import styles from "./multi-use.module.scss";
-import iMac from "/assets/imgs/device-pile-vn.png";
-import Video from "/assets/videos/video-devices-vn.m4v";
 
 const cx = classNames.bind(styles);
 
@@ -20,9 +18,9 @@ const MultiUse = () => {
           </div>
           <div className="col-6">
             <div className={cx("multi-use-right")}>
-                <img src={iMac} alt="Error" />
+                <img src={"/assets/imgs/device-pile-vn.png"} alt="Error" />
                 <video autoPlay muted loop width={400}>
-                    <source src={Video} type="video/mp4" />
+                    <source src={"/assets/videos/video-devices-vn.m4v"} type="video/mp4" />
                 </video>
             </div>
           </div>
