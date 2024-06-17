@@ -43,9 +43,6 @@ Thumbs.db
 tmp/
 temp/
 
-# Ignore built assets
-assets/
-
 # Ignore any files related to package manager lock files
 package-lock.json
 yarn.lock
