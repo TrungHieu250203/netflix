@@ -8,7 +8,7 @@ const DefaultLayout = ({ children }) => {
     <>
       <div
         style={{
-          backgroundImage: 'linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%), url("../assets/imgs/VN-en-20240422-popsignuptwoweeks-perspective_alpha_website_large.jpg")',
+          backgroundImage: 'linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.8) 100%), url("/assets/imgs/VN-en-20240422-popsignuptwoweeks-perspective_alpha_website_large.jpg")',
           objectFit: "cover",
           minHeight: "700px",
           backgroundPosition: "center center",
