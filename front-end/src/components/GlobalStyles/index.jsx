@@ -1,6 +1,6 @@
 import "./GlobalStyles.module.scss";
 
-const GlobalStyles = ({ children }) => {
+function GlobalStyles({ children }) {
     return children;
 }
 
