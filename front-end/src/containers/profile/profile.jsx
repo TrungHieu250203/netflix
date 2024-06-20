@@ -84,7 +84,7 @@ const Profile = () => {
                 <div className="row">
                     <div className={cx("col-4 profile-custom")}>
                         <div className={cx("profile-img")}>
-                            <img src={`http://localhost:3000${profile.avatar}`} alt="avatar" />
+                            <img src={`${import.meta.env.VITE_IMG_URL}${profile.avatar}`} alt="avatar" />
                             <div className={cx("classify")}>
                                 <img src={"/assets/imgs/Silver-Icon.png"} alt="rank" />
                                 <strong>VIP Account</strong>
