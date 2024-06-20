@@ -63,7 +63,7 @@ const Header = () => {
     event.preventDefault();
     try {
       const response = await axios.get(
-        "http://localhost:3000/api/users/auth/logout", options
+        `${import.meta.env.VITE_API_URL}/users/auth/logout`, options
       );
       if(response.status === 200) {
         console.log("Logout successful!");
@@ -77,7 +77,7 @@ const Header = () => {
     event.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/movies/notifications/read", 
+        `${import.meta.env.VITE_API_URL}/movies/notifications/read`, 
         {
           notifySlug: notificationSlug
         }, 
@@ -281,7 +281,7 @@ const Header = () => {
               <div className={cx("account")}>
                 <div className={cx("user-account")}>
                   <img
-                    src={`http://localhost:3000${avatarUrl}`}
+                    src={`${import.meta.env.VITE_IMG_URL}${avatarUrl}`}
                     className={cx("avatar")}
                     alt="avatar"
                   />
