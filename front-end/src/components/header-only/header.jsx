@@ -35,7 +35,7 @@ const Header = () => {
   const fetchMoviesByKeyword = async (keyword) => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/movies?keyword=${encodeURIComponent(keyword)}`, options
+        `${import.meta.env.VITE_API_URL}/movies?keyword=${encodeURIComponent(keyword)}`, options
       );
       return response.data;
     } catch (error) {
