@@ -12,7 +12,7 @@ const Footer = () => {
     <footer className={cx("footer")}>
       <div className="container">
         <div className="row">
-          <div className="col-3">
+          <div className="col-xxl-3 col-xl-3 col-md-3 col-12">
             <p><Link to="">Questions? Contact us.</Link></p>
             <ul className={cx("footer-list")}>
               <li>
@@ -40,7 +40,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-3">
+          <div className="col-xxl-3 col-xl-3 col-md-3 col-12">
             <ul className={cx("footer-list")}>
               <li>
                 <Link to="">Help Center</Link>
@@ -53,7 +53,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-3">
+          <div className="col-xxl-3 col-xl-3 col-md-3 col-12">
             <ul className={cx("footer-list")}>
               <li>
                 <Link to="">Account</Link>
@@ -63,7 +63,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div className="col-3">
+          <div className="col-xxl-3 col-xl-3 col-md-3 col-12">
             <ul className={cx("footer-list")}>
               <li>
                 <Link to="">Media Center</Link>

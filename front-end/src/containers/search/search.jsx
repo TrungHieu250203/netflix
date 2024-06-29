@@ -64,7 +64,7 @@ const SearchResult = () => {
       <div className="container">
         <div className="row" id={cx("search-result")}>
           <h2>{`Keyword: "${keyword}"`}</h2>
-          <strong>There are a total of {countMovies} results</strong>
+          <strong className={cx("search-notify")}>There are a total of {countMovies} results</strong>
           { movies.length === 0 && <b>Not found</b>}
           { movies.map(item => {
             const { slug, poster_url, name, origin_name, episode_current, year } = item.movie;
@@ -73,7 +73,7 @@ const SearchResult = () => {
               episode = "tap-full";
             }
             return (
-              <div key={slug} className="col-3">
+              <div key={slug} className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
                 <Movie
                   slug={slug}
                   poster_url={poster_url}

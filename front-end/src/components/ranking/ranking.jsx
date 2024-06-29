@@ -76,7 +76,7 @@ const Ranking = () => {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-12 mb-5 d-flex align-items-center">
+                    <div className="col-12 mb-5 d-flex align-items-center justify-content-end">
                         <div className={cx("btn-group")}>
                             <button className={cx("btn-click")} onClick={handlePrevPage}>
                                 <ChevronLeftIcon className={cx("icon")} />

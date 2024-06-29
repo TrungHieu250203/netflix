@@ -136,9 +136,8 @@ const Header = () => {
       <div className="container">
         <div className="row">
           <div className="col-12 d-flex justify-content-between align-items-center">
-            <ul className={cx("header-list")}>
-              <li onClick={scrollToTop}>
-                <Link to="/">
+            <div onClick={scrollToTop}>
+              <Link to="/">
                   <svg
                     viewBox="0 0 111 30"
                     version="1.1"
@@ -154,7 +153,8 @@ const Header = () => {
                     </g>
                   </svg>
                 </Link>
-              </li>
+            </div>
+            <ul className={cx("header-list")}>
               <li className={cx("header-item")} onClick={scrollToTop}>
                 <Link
                   to="/series"

@@ -28,8 +28,8 @@
 .movie-item {
     position: relative;
     height: 550px;
-    width: 270px;
-    margin-bottom: 25px;
+    width: 280px;
+    margin: 0 auto 25px auto;
     border-radius: 4px;
     background-color: var(--black-color);
 
@@ -165,10 +165,4 @@
     font-weight: 400;
     line-height: 1.4;
     color: var(--white-color);
-}
-
-.btn-group {
-    position: absolute;
-    right: 138px;
-    margin-top: 15px;
 }

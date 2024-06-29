@@ -111,8 +111,8 @@ const MyList = () => {
             <h2>My List</h2>
           </div>
         </div>
-        <div className="row d-flex justify-content-between mb-5">
-          <div className="col-6" id={cx("custom")}>
+        <div className="row d-flex align-items-center mb-5">
+          <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-12" id={cx("custom")}>
             <button style={{ backgroundColor: "#111319" }} onClick={handleSelectAll}>Select all</button>
             <button className={cx("btn-edit")} onClick={() => setState(prev => ({...prev, isActiveCheckbox: !prev.isActiveCheckbox}))}>Edit</button>
             <form onSubmit={handleSubmit}>
@@ -121,7 +121,7 @@ const MyList = () => {
               <button type="submit" className={cx("btn-delete")} >Delete</button>
             </form>
           </div>
-          <div className="col-6 mr-4" id={cx("btn-group")}>
+          <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-4 col-12 mr-4" id={cx("btn-group")}>
             <button className={cx("btn-click")} onClick={handlePageChange}>
               <ChevronLeftIcon className={cx("icon")} />
             </button>
@@ -139,7 +139,7 @@ const MyList = () => {
             <div className="row pt-3">
                 {currentMovies.map(movie => {
                   return (
-                    <div className="col-3" key={movie.slug}>
+                    <div className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12" key={movie.slug}>
                       { state.isActiveCheckbox && <input className="form-check-input" type="checkbox" value={movie._id} id={cx("input-custom")} /> }
                       <Movie slug={movie.slug} name={movie.name} origin_name={movie.origin_name} poster_url={movie.poster_url} episode_current={movie.episode_current} episode={`tap-${1}`} year={movie.year} />
                     </div>
