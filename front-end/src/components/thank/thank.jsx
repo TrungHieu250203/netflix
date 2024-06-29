@@ -13,7 +13,7 @@ const Thank = () => {
                     </div>
                 </div>
                 <div className="row pt-5">
-                    <div className="col-6">
+                    <div className="col-xl-6 col-lg-6 col-md-12 col-12">
                         <img src={"/assets/imgs/Netflix-PPT-Template.jpg"} alt="error" />
                     </div>
                     <div className="col-6" id={cx("desc")}>

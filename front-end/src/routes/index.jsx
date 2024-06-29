@@ -24,6 +24,7 @@ import Dashboard from "../containers/dashboard/dashboard";
 import Movies from "../containers/movies/movies";
 import CreateMoviePage from "../containers/create-movie/create-movie";
 import Authorization from "../containers/authorization/authorization";
+import EditMoviePage from "../containers/edit-movie/edit-movie";
 
 const publicRoutes = [
   { path: "/vn-en", component: Home },
@@ -55,6 +56,7 @@ const adminPrivateRoutes = [
   { path: "/admin/dashboard", component: Dashboard, layout: AdminLayout },
   { path: "/admin/movies", component: Movies, layout: AdminLayout },
   { path: "/admin/movies/create-movie", component: CreateMoviePage, layout: AdminLayout },
+  { path: "/admin/movies/edit/:id", component: EditMoviePage, layout: AdminLayout },
   { path: "/admin/authorization", component: Authorization, layout: AdminLayout }
 ];
 

@@ -3,6 +3,7 @@ import styles from "./footer.module.scss";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import XIcon from "@mui/icons-material/X";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -12,59 +13,70 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-3">
-            <p><a href="">Questions? Contact us.</a></p>
+            <p><Link to="">Questions? Contact us.</Link></p>
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">FAQ</a>
+                <Link to="">FAQ</Link>
               </li>
               <li>
-                <a href="">Investor Relations</a>
+                <Link to="">Investor Relations</Link>
               </li>
               <li>
-                <a href="">Privacy</a>
+                <Link to="">Privacy</Link>
               </li>
               <li>
-                <a href="">Speed Test</a>
+                <Link to="">Speed Test</Link>
               </li>
               <li className={cx("group-icon")}>
-                <InstagramIcon className={cx("icon")} />
-                <FacebookIcon className={cx("icon")} />
-                <XIcon className={cx("icon")} />
+                <Link>
+                  <InstagramIcon className={cx("icon")} />
+                </Link>
+                <Link to="https://www.facebook.com/profile.php?id=100048019124907" target="blank">
+                  <FacebookIcon className={cx("icon")} />
+                </Link>
+                <Link>
+                  <XIcon className={cx("icon")} />
+                </Link>
               </li>
             </ul>
           </div>
           <div className="col-3">
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">Help Center</a>
+                <Link to="">Help Center</Link>
               </li>
               <li>
-                <a href="">Jobs</a>
+                <Link to="">Jobs</Link>
               </li>
               <li>
-                <a href="">Cookie Preferences</a>
+                <Link to="">Cookie Preferences</Link>
               </li>
             </ul>
           </div>
           <div className="col-3">
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">Account</a>
+                <Link to="">Account</Link>
               </li>
               <li>
-                <a href="">Ways to Watch</a>
+                <Link to="">Ways to Watch</Link>
               </li>
             </ul>
           </div>
           <div className="col-3">
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">Media Center</a>
+                <Link to="">Media Center</Link>
               </li>
               <li>
-                <a href="">Terms of Use</a>
+                <Link to="">Terms of Use</Link>
               </li>
             </ul>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12">
+            <div className={cx("footer-desc")}><p>©2024 Netflix. This website was created by Nguyen Trung Hieu, a student majoring in Information Security at Ho Chi Minh City University of Industry and Trade</p></div>
           </div>
         </div>
       </div>

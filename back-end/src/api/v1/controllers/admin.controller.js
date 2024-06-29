@@ -16,6 +16,9 @@ module.exports.adminLogin = async (req, res) => {
     if (!validPassword) {
       return res.status(401).json({ message: "Password invalid." });
     }
+    if(user.role !== "admin") {
+      return res.status(500).json({ message: "Invalid" });
+    }
     const token = createToken(user._id);
     res.cookie("adminToken", token, {
       httpOnly: true,
@@ -26,6 +29,25 @@ module.exports.adminLogin = async (req, res) => {
     res.json({ accessToken: token });
   } catch (err) {
     res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.adminLogout = async (req, res) => {
+  try {
+    const authHeader = await req.headers["authorization"];
+    const token = authHeader ? authHeader.split(" ")[1] : null;
+    const userId = req.user.userId;
+    if (token) {
+      const newBlacklist = await new Blacklisting({
+        userId: userId,
+        token: token,
+        expiresAt: new Date(Date.now() + 7200000),
+      });
+      await newBlacklist.save();
+    }
+    res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    res.status(500).json({ message: "Error logout!" });
   }
 };
 
@@ -134,6 +156,66 @@ module.exports.addMovie = async (req, res) => {
     res.json({ message: "Success !"});
   } catch (err) {
     console.error(err);
+    res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.deleteMovie = async (req, res) => {
+  try {
+    const movieId = req.params.movieId;
+    if (!movieId) {
+      return res.status(400).send("Movie ID is required.");
+    }
+    await MainModel.findOneAndDelete({ "movie._id": movieId });
+    res.json({ message: "Success !" });
+  } catch (err) {
+    res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.editMoviePage = async (req, res) => {
+  try {
+    const movieId = req.params.movieId;
+    const movie = await MainModel.findOne({ "movie._id": movieId });
+    res.json(movie);
+  } catch (err) {
+    res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.handleEditMovie = async (req, res) => {
+  try {
+    res.json({ message: "Success !" });
+  } catch (err) {
+    res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find({});
+    res.json(users);
+  } catch (err) {
+    res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.lockUser = async (req, res) => {
+  try {
+    const { userIdList } = req.body;
+    await User.updateMany({ _id: { $in: userIdList } }, { isLocked: true } );
+    res.json("Success");
+  } catch (err) {
+    res.status(500).send("Message: " + err.message);
+  }
+};
+
+module.exports.unlockUser = async (req, res) => {
+  try {
+    const { userIdList } = req.body;
+    await User.updateMany({ _id: { $in: userIdList } }, { isLocked: false } );
+    res.json("Success");
+  } catch (err) {
     res.status(500).send("Message: " + err.message);
   }
 };

@@ -105,7 +105,7 @@ const Movies = ({ fetchAllMovies, title }) => {
                 episode = "full";
               }
               return (
-                <div key={slug} className="col-3">
+                <div key={slug} className="col-xxl-3 col-xl-3 col-lg-4 col-md-6 col-12">
                   <Movie
                     slug={slug}
                     poster_url={poster_url}

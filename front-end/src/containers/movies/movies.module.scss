@@ -18,6 +18,15 @@
     margin-bottom: 15px;
     border-radius: 4px;
 
+    &:hover {
+        cursor: pointer;
+        background-color: var(--box-color);
+
+        img {
+            opacity: 0.7;
+        }
+    }
+
     img {
         width: 220px;
         height: 350px;
@@ -69,17 +78,15 @@
     padding: 5px 15px;
 }
 
-form {
-    button {
-        border: none;
-        outline: none;
-        background-color: transparent;
-    }
+button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
 
-    .icon {
-        font-size: 3rem;
-        color: var(--white-color);
-    }
+.icon {
+    font-size: 3rem !important;
+    color: var(--white-color);
 }
 
 .action {
@@ -96,7 +103,7 @@ form {
     text-decoration: none;
 
     button {
-        width: 180px;
+        width: 150px;
         display: flex;
         align-items: center;
         justify-content: space-evenly;
@@ -110,8 +117,9 @@ form {
         border: none;
         outline: none;
     }
+    
     .icon {
-        font-size: 3rem;
+        font-size: 4rem;
         padding-left: 5px;
     }
 }

@@ -98,16 +98,19 @@ const ImageSlider = ({ images }) => {
             />
           ) : (
             currentImage.video && (
-              <ReactPlayer
-                url={currentImage.video}
-                width="100%"
-                height="625px"
-                playing={true}
-                controls={false}
-                muted={mediaState.muted}
-                onReady={handleVideoReady}
-                onEnded={handleVideoEnded}
-              />
+              <div className={cx("video-wrapper")}>
+                <ReactPlayer
+                  url={currentImage.video}
+                  width="100%"
+                  height="625px"
+                  playing={true}
+                  controls={false}
+                  muted={mediaState.muted}
+                  onReady={handleVideoReady}
+                  onEnded={handleVideoEnded}
+                />
+                <div className={cx("video-hover-overlay")}></div>
+              </div>
             )
           )}
           {!mediaState.videoLoaded && currentImage.name && (

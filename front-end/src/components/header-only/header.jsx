@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useMovies } from "../../context/movie-provider";
 import Cookies from "js-cookie";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
@@ -22,6 +22,7 @@ const Header = () => {
   const [keyword, setKeyword] = useState("");
   const [searchClick, setSearchClick] = useState(false);
   const { setMovies, setTotalPagesSearch } = useMovies();
+  const [isScrolled, setIsScrolled] = useState(false);
   const navigate = useNavigate();
   const token = Cookies.get("token");
   const avatarUrl = Cookies.get("avatar");
@@ -35,7 +36,7 @@ const Header = () => {
   const fetchMoviesByKeyword = async (keyword) => {
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_API_URL}/movies?keyword=${encodeURIComponent(keyword)}`, options
+        `${import.meta.env.VITE_API_URL}/movies/search-films?keyword=${encodeURIComponent(keyword)}`, options
       );
       return response.data;
     } catch (error) {
@@ -111,13 +112,32 @@ const Header = () => {
     (notification) => notification.status === "unread"
   ).length;
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 500,
+      behavior: "smooth",
+    });
+  };
+
   return (
-    <header className={cx("header")}>
+    <header className={cx("header")} style={{ backgroundColor: isScrolled ? "var(--black-color)" : "transparent", transition: "background-color 0.3s" }}>
       <div className="container">
         <div className="row">
           <div className="col-12 d-flex justify-content-between align-items-center">
             <ul className={cx("header-list")}>
-              <li>
+              <li onClick={scrollToTop}>
                 <Link to="/">
                   <svg
                     viewBox="0 0 111 30"
@@ -135,7 +155,7 @@ const Header = () => {
                   </svg>
                 </Link>
               </li>
-              <li className={cx("header-item")}>
+              <li className={cx("header-item")} onClick={scrollToTop}>
                 <Link
                   to="/series"
                   className={
@@ -147,7 +167,7 @@ const Header = () => {
                   Series
                 </Link>
               </li>
-              <li className={cx("header-item")}>
+              <li className={cx("header-item")} onClick={scrollToTop}>
                 <Link
                   to="/feature-films"
                   className={
@@ -159,7 +179,7 @@ const Header = () => {
                   Features
                 </Link>
               </li>
-              <li className={cx("header-item")}>
+              <li className={cx("header-item")} onClick={scrollToTop}>
                 <Link
                   to="/tv-shows"
                   className={
@@ -171,7 +191,7 @@ const Header = () => {
                   TV Shows
                 </Link>
               </li>
-              <li className={cx("header-item")}>
+              <li className={cx("header-item")} onClick={scrollToTop}>
                 <Link
                   to="/animated"
                   className={
@@ -183,7 +203,7 @@ const Header = () => {
                   Animated
                 </Link>
               </li>
-              <li className={cx("header-item")}>
+              <li className={cx("header-item")} onClick={scrollToTop}>
                 <Link
                   to="/my-list"
                   className={

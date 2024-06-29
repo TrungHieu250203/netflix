@@ -286,7 +286,17 @@ module.exports.addMovieToMyList = async (req, res) => {
         return movie.slug === movieSlug;
       });
       if (isMovie) {
-        return res.status(409).json({ message: "Movie already in list" });
+        const updateMovie = Array.from(myList._doc.movie).filter((movie) => {
+          return movie.slug !== movieSlug;
+        });
+        if (updateMovie.length) {
+          await MyList.findOneAndUpdate(
+            { userId: user.id }, 
+            { movie: updateMovie }
+          );
+          return res.json(myList);
+        }
+        return res.status(409).json({ message: "Error" });
       }
     }
     const newMovie = {
@@ -515,6 +525,12 @@ module.exports.getMovieDetailsWithComments = async (req, res) => {
     const userId = req.user.userId;
     const user = await User.findById(userId);
     const status = await Status.findOne({ userId: user._id });
+    const myList = await MyList.findOne({ userId: user._id });
+    const isMovieFromMyList = Array.from(myList.movie).findIndex(m => m.slug === slug);
+    let isMyList = false;
+    if(isMovieFromMyList !== -1) {
+      isMyList = true;
+    }
     let movieStatus = "";
     if (status) {
       const foundMovieStatus = status.movies.find((m) => {
@@ -533,7 +549,8 @@ module.exports.getMovieDetailsWithComments = async (req, res) => {
       detail: movie,
       comments: comments,
       movieStatus: movieStatus,
-      score: score
+      score: score,
+      isMyList: isMyList
     };
     res.json(response);
   } catch (err) {

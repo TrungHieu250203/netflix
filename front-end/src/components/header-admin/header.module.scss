@@ -9,4 +9,16 @@
         line-height: 1.6;
         color: var(--button-color);
     }
+
+    .log-out {
+        font-size: 1.9rem;
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--button-color);
+
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
 }

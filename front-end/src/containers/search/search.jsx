@@ -15,7 +15,7 @@ const cx = classNames.bind(styles);
 const SearchResult = () => {
   const [searchParams] = useSearchParams();
   const storedKeyword = localStorage.getItem("searchKeyword") || "";
-  const keyword = searchParams.get("search") || storedKeyword;
+  const keyword = searchParams.get("keyword") || storedKeyword;
   const [countMovies, setCountMovies] = useState(0);
   const {
     movies,
@@ -29,6 +29,7 @@ const SearchResult = () => {
   const location = useLocation();
   const queryParams = queryString.parse(location.search);
   const pageFromQuery = parseInt(queryParams.page) || 1;
+  console.log(keyword)
 
   useEffect(() => {
     const loadMovies = async () => {

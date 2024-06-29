@@ -1,5 +1,20 @@
 import axios from "axios";
 
+export const fetchAllUsers = async () => {
+  try {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/admin/users`);
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error("Failed to fetch movies:", response.status);
+      return [];
+    }
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    throw error;
+  }
+};
+
 export const fetchAllThumbnails = async () => {
   try {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/movies/thumbnail`);

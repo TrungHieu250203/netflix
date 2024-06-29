@@ -9,7 +9,8 @@ import Pagination from "../../components/pagination/pagination";
 import Sort from "../../components/sort/sort";
 import EditCalendarIcon from "@mui/icons-material/EditCalendar";
 import DeleteIcon from "@mui/icons-material/Delete";
-import NoteAddIcon from "@mui/icons-material/NoteAdd";
+import AddBoxIcon from "@mui/icons-material/AddBox";
+import axios from "axios";
 
 const cx = classNames.bind(styles);
 
@@ -30,6 +31,7 @@ const Movies = () => {
   const [checkMovies, setCheckMovies] = useState(false);
   const [filters, setFilters] = useState({ category });
   const [isLoading, setIsLoading] = useState(false);
+  const [movieId, setMovieId] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -83,11 +85,33 @@ const Movies = () => {
     );
   }
 
+  const handleDelete = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/admin/delete/${movieId}`);
+      if (response.status === 200) {
+        console.log("Successfully deleted !");
+        const currentMovies = movies.filter(m => m._id !== movieId);
+        setMovies(currentMovies);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+
   return (
     <div className={cx("movies")}>
       <div className="row">
         <div className="col-12">
           <h3>Movies</h3>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <Link to="/admin/movies/create-movie" className={cx("form-add")}>
+            <button>Create<AddBoxIcon className={cx("icon")} /></button>
+          </Link>
         </div>
       </div>
       <div className="row">
@@ -98,13 +122,6 @@ const Movies = () => {
           />
         </div>
       </div>
-      <div className="row">
-        <div className="col-12">
-          <Link to="/admin/movies/create-movie" className={cx("form-add")}>
-            <button>New Movie<NoteAddIcon className={cx("icon")} /></button>
-          </Link>
-        </div>
-      </div>
       <div className="row" key={currentPage} id={cx("list")}>
         {checkMovies ? (
           <strong className={cx("warning")}>
@@ -113,6 +130,7 @@ const Movies = () => {
         ) : (
           movies.map((item) => {
             const {
+              _id,
               slug,
               poster_url,
               name,
@@ -130,11 +148,11 @@ const Movies = () => {
                     </div>
                     <p className={cx("movie-status")}>{episode_current}</p>
                     <div className={cx("action")}>
-                      <form className={cx("form-edit")}>
-                        <button type="submit"><EditCalendarIcon className={cx("icon")} /></button>
-                      </form>
-                      <form className={cx("form-delete")}>
-                        <button type="submit"><DeleteIcon className={cx("icon")} /></button>
+                      <Link to={`/admin/movies/edit/${_id}`}>
+                        <button><EditCalendarIcon className={cx("icon")} /></button>
+                      </Link>
+                      <form className={cx("form-delete")} onSubmit={handleDelete}>
+                        <button type="submit" onClick={() => setMovieId(_id)}><DeleteIcon className={cx("icon")} /></button>
                       </form>
                     </div>
                   </div>

@@ -17,6 +17,7 @@ import SmsFailedIcon from "@mui/icons-material/SmsFailed";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import { useNotifications } from "../../components/socket/socket";
 import { fetchAllNotifications } from "../../api/index";
+import Loading from "../../components/loading/loading";
 
 const cx = classNames.bind(styles);
 
@@ -37,10 +38,12 @@ const Detail = () => {
     userEmail: "",
     status: "",
     totalScore: 0,
+    isMyList: false,
   });
   const [displayedComments, setDisplayedComments] = useState(3);
   const [isAlertSuccessfully, setIsAlertSuccessfully] = useState(false);
   const [isAlertFailed, setIsAlertFailed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const episodeContainerRef = useRef(null);
   const email = Cookies.get("email");
   const token = Cookies.get("token");
@@ -62,6 +65,7 @@ const Detail = () => {
       const status = response.movieStatus;
       const totalScore = response.score?.totalScore ?? 0;
       const voteQuantity = response.score?.voteQuantity ?? 0;
+      const myList = response.isMyList;
       let totalScoreCalculator = 0;
       if (voteQuantity !== 0) {
         totalScoreCalculator = Number.parseFloat(totalScore / voteQuantity);
@@ -76,14 +80,17 @@ const Detail = () => {
         comments,
         userEmail: user,
         status: status,
-        totalScore: totalScoreCalculator
+        totalScore: totalScoreCalculator,
+        isMyList: myList
       });
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to fetch movie details:", error);
     }
   };
 
   useEffect(() => {
+    setIsLoading(true);
     fetchMovieData();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [slug]);
@@ -179,6 +186,7 @@ const Detail = () => {
         setTimeout(() => {
           setIsAlertSuccessfully(false);
         }, 3000);
+        setMovieData(prev => ({...prev, isMyList: !prev.isMyList}));
         const notificationsResponse = await fetchAllNotifications(options);
         setNotifications(notificationsResponse.messages);
       } else {
@@ -207,12 +215,17 @@ const Detail = () => {
       );
       if (response.status === 200) {
         setMovieData(prev => ({...prev, status: newStatus }));
+        await fetchMovieData();
         const notificationsResponse = await fetchAllNotifications(options);
         setNotifications(notificationsResponse.messages);
       }
     } catch (error) {
       console.error("Registration error:", error.response);
     }
+  }
+
+  if(isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -223,14 +236,14 @@ const Detail = () => {
             {isAlertSuccessfully && (
               <Alert
                 icon={<CheckCircleIcon className="fs-2" />}
-                text={"Added to list successfully !"}
+                text={"The action was performed successfully !"}
                 name={"success"}
               />
             )}
             {isAlertFailed && (
               <Alert
                 icon={<SmsFailedIcon className="fs-2" />}
-                text={"Add to failure list !"}
+                text={"Action failed, please check again !"}
                 name={"failed"}
               />
             )}
@@ -241,7 +254,6 @@ const Detail = () => {
                   src={movieData.videoUrl}
                   width="100%"
                   height="500"
-                  frameBorder="0"
                   allow="autoplay; fullscreen"
                   allowFullScreen
                 ></iframe>
@@ -258,7 +270,7 @@ const Detail = () => {
               <form className={cx("form-add-list")} onSubmit={handleAddMyList}>
                 <input type="hidden" name="movieSlug" value={slug} />
                 <button type="submit">
-                  <LibraryAddIcon className={cx("add-icon")} />
+                  <LibraryAddIcon className={ movieData.isMyList ? cx("add-icon-active") : cx("add-icon") } />
                 </button>
               </form>
               <div className={cx("rating-box")}>
@@ -300,7 +312,7 @@ const Detail = () => {
             </div>
             <div className={cx("total-score")}>
               <Star rating={movieData.totalScore} totalStars={totalStars} />
-              <strong>{ movieData.totalScore === 0 ? "(There are no reviews yet)" : `(${Math.round(movieData.totalScore * 100) / 100} score)`}</strong>
+              <strong>{ movieData.totalScore === 0 ? "(No reviews)" : `(${Math.round(movieData.totalScore * 100) / 100} score)`}</strong>
             </div>
             <div className={cx("categories")}>
               {movieData.categories.map((item) => (
@@ -342,7 +354,7 @@ const Detail = () => {
               <h4>Comments</h4>
               <form className={cx("user")} onSubmit={handleSubmitComment}>
                 <div className={cx("comment")}>
-                  <img src={`http://localhost:3000${avatarUrl}`} alt="Avatar" />
+                  <img src={`${import.meta.env.VITE_IMG_URL}${avatarUrl}`} alt="Avatar" />
                   <textarea
                     className={cx("text")}
                     value={movieData.commentValue}
@@ -377,7 +389,7 @@ const Detail = () => {
                         }
                       >
                         <div className={cx("comment-item")}>
-                          <img src={`http://localhost:3000${comment.avatarUrl}`} alt="Avatar" />
+                          <img src={`${import.meta.env.VITE_IMG_URL}${comment.avatarUrl}`} alt="Avatar" />
                           <textarea
                             className={cx("text")}
                             value={comment.text}

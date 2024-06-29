@@ -1,6 +1,6 @@
 .footer {
     background-color: var(--black-color);
-    padding: 100px 0;
+    padding: 100px 0 20px 0;
     border-top: 5px solid var(--box-color);
 
     p {
@@ -39,5 +39,15 @@
 
     li {
         padding: 10px 0;
+    }
+}
+
+.footer-desc {
+    padding-top: 90px;
+    p {
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 1.2;
+        color: var(--text-color);
     }
 }

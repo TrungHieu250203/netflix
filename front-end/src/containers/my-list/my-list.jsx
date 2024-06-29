@@ -78,7 +78,8 @@ const MyList = () => {
     try {
       const response = await axios.delete(`${import.meta.env.VITE_API_URL}/movies/my-list/delete`, { data: formData, ...options });
       if(response.status === 200) {
-        window.location.reload();
+        const updatedMovies = state.movies.filter(movie => !checkedValue.includes(movie._id));
+        setState(prev => ({ ...prev, movies: updatedMovies }));
       }
     } catch (error) {
       console.error("Error during deletion:", error.response);

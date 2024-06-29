@@ -74,6 +74,9 @@ module.exports.userLogin = async (req, res) => {
     if (!validPassword) {
       return res.status(401).json({ message: "Password invalid." });
     }
+    if (user.isLocked) {
+      return res.status(401).json({ message: "Account locked !" });
+    }
     const token = createToken(user._id);
     res.cookie("token", token, {
       httpOnly: true,

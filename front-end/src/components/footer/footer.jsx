@@ -1,6 +1,7 @@
 import classNames from "classnames/bind";
 import styles from "./footer.module.scss";
 import Languages from "../../components/language/language";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -10,19 +11,19 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-3">
-            <p><a href="">Questions? Contact us.</a></p>
+            <p><Link to="">Questions? Contact us.</Link></p>
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">FAQ</a>
+                <Link to="">FAQ</Link>
               </li>
               <li>
-                <a href="">Investor Relations</a>
+                <Link to="">Investor Relations</Link>
               </li>
               <li>
-                <a href="">Privacy</a>
+                <Link to="">Privacy</Link>
               </li>
               <li>
-                <a href="">Speed Test</a>
+                <Link to="">Speed Test</Link>
               </li>
               <li>
                 <Languages />
@@ -35,45 +36,45 @@ const Footer = () => {
           <div className="col-3">
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">Help Center</a>
+                <Link to="">Help Center</Link>
               </li>
               <li>
-                <a href="">Jobs</a>
+                <Link to="">Jobs</Link>
               </li>
               <li>
-                <a href="">Cookie Preferences</a>
+                <Link to="">Cookie Preferences</Link>
               </li>
               <li>
-                <a href="">Legal Notices</a>
-              </li>
-            </ul>
-          </div>
-          <div className="col-3">
-            <ul className={cx("footer-list")}>
-              <li>
-                <a href="">Account</a>
-              </li>
-              <li>
-                <a href="">Ways to Watch</a>
-              </li>
-              <li>
-                <a href="">Corporate Information</a>
-              </li>
-              <li>
-                <a href="">Only on Netflix</a>
+                <Link to="">Legal Notices</Link>
               </li>
             </ul>
           </div>
           <div className="col-3">
             <ul className={cx("footer-list")}>
               <li>
-                <a href="">Media Center</a>
+                <Link to="">Account</Link>
               </li>
               <li>
-                <a href="">Terms of Use</a>
+                <Link to="">Ways to Watch</Link>
               </li>
               <li>
-                <a href="">Contact Us</a>
+                <Link to="">Corporate Information</Link>
+              </li>
+              <li>
+                <Link to="">Only on Netflix</Link>
+              </li>
+            </ul>
+          </div>
+          <div className="col-3">
+            <ul className={cx("footer-list")}>
+              <li>
+                <Link to="">Media Center</Link>
+              </li>
+              <li>
+                <Link to="">Terms of Use</Link>
+              </li>
+              <li>
+                <Link to="">Contact Us</Link>
               </li>
             </ul>
           </div>
